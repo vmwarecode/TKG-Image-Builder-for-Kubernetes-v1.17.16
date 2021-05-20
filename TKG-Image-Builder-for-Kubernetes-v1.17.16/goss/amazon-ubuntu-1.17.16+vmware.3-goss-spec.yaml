@@ -60,11 +60,14 @@ service:
   kubelet:
     enabled: true
     running: false
+  snap.amazon-ssm-agent.amazon-ssm-agent.service:
+    enabled: true
+    running: true
 command:
   /opt/cni/bin/host-device 2>&1 | awk -F' ' '{print substr($4,2); }':
     exit-status: 0
     stdout:
-    - 0.8.7+vmware.5
+    - 0.8.7+vmware.3
     stderr: []
     timeout: 0
   containerd --version | awk -F' ' '{print substr($3,2); }':
@@ -92,19 +95,19 @@ command:
   kubeadm version -o json | jq .clientVersion.gitVersion | tr -d '"' | awk '{print substr($1,2); }':
     exit-status: 0
     stdout:
-    - 1.17.16+vmware.2
+    - 1.17.16+vmware.3
     stderr: []
     timeout: 0
   kubectl version --short --client=true -o json | jq .clientVersion.gitVersion | tr -d '"' | awk '{print substr($1,2); }':
     exit-status: 0
     stdout:
-    - 1.17.16+vmware.2
+    - 1.17.16+vmware.3
     stderr: []
     timeout: 0
   kubelet --version | awk -F' ' '{print $2}'  | tr -d '"' | awk '{print substr($1,2); }':
     exit-status: 0
     stdout:
-    - 1.17.16+vmware.2
+    - 1.17.16+vmware.3
     stderr: []
     timeout: 0
 kernel-param:
